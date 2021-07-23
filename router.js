@@ -6,6 +6,8 @@ const router = Router();
 
 router.post('/user', UserController.createUser);
 router.get('/users', UserController.getAllUsers);
+router.get('/user/:id', UserController.getUser);
+
 
 router.post(
   '/user/:id/task/',
