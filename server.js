@@ -16,11 +16,9 @@ server.listen(port, () => {
 });
 
 /*
-  Model: Task
-  userId:INTEGER NOT NULL
-  body:VARCHAR(512) NOT NULL, != ''
-  isDone:BOOLEAN NOT NULL, DEFAULT false
-  deadline:DATE
-
-  npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+  Model: Group
+  name:string,
+  imagePath:text,
+  description:string,
+  
 */
