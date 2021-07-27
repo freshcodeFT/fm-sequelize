@@ -83,3 +83,42 @@ module.exports.addUserToGroup = async (req, res, next) => {
     next(err);
   }
 };
+
+/*
+{
+    "fieldname": "image",
+    "originalname": "grapefruit-slice-332-332.jpg",
+    "encoding": "7bit",
+    "mimetype": "image/jpeg",
+    "destination": "public/images",
+    "filename": "70f5885f1d667ceb1466da4de05e2366",
+    "path": "public/images/70f5885f1d667ceb1466da4de05e2366",
+    "size": 18122
+}
+*/
+module.exports.createImage = async (req, res, next) => {
+  try {
+    const {
+      file: { filename },
+      params: { groupId },
+    } = req;
+
+    const [rowsCount, [updatedGroup]] = await Group.update(
+      { imagePath: filename },
+      {
+        where: {
+          id: groupId,
+        },
+        returning: true,
+      }
+    );
+    if (rowsCount != 1) {
+      return next(createError(404, 'Group not found'));
+    }
+
+    res.send(updatedGroup);
+    //res.send(req.file);
+  } catch (err) {
+    next(err);
+  }
+};
